@@ -1,0 +1,21 @@
+<mat-dialog-content class="mat-typography">
+
+<div class="task-dialog">
+
+<h2 mat-dialog-title>Edit Task deadline</h2>
+<form class="task-form">
+  <div class="form-group">
+    <label for="taskDeadline">Deadline:</label>
+    <input type="date" class="form-control" id="taskDeadline" [(ngModel)]="deadline" name="taskDeadline" required>
+    
+    <label for="taskDeadlineTime">Deadline Time (HH:mm:ss):</label>
+    <input type="text" class="form-control" id="taskDeadlineTime" [(ngModel)]="deadlineTime" name="taskDeadlineTime" pattern="[0-2][0-9]:[0-5][0-9]:[0-5][0-9]" required>
+    <small class="form-text text-muted">Format: HH:mm:ss (e.g., 14:30:00)</small>
+  </div>
+</form>
+<div class="dialog-actions">
+  <button mat-button class="cancel-button" (click)="onCancelClick()">Cancel</button>
+  <button mat-button class="save-button" (click)="onSaveClick()">Save</button>
+</div>
+</div>
+</mat-dialog-content>

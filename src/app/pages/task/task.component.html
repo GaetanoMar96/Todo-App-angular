@@ -1,0 +1,45 @@
+<div class="container">
+  <!-- Tasks Section -->
+  <h2 class="section-title">Tasks</h2>
+  <button mat-raised-button color="primary" (click)="openTaskDialog()" class="add-button">Add Task</button>
+  <mat-table [dataSource]="tasks" class="tasks-table" matSort>
+
+    <!-- Define task columns -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let task">{{ task.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+      <mat-cell *matCellDef="let task">{{ task.description }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deadline">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Deadline</mat-header-cell>
+      <mat-cell *matCellDef="let task">{{ task.deadline }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+      <mat-cell *matCellDef="let task">{{ task.categoryId }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let task" class="action-buttons">
+        <button class="delete-button" (click)="deleteTask(task.taskId)">
+          delete
+        </button>
+
+        <button class="edit-button" (click)="updateTask(task.taskId)">
+          edit
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['name', 'description', 'deadline', 'category', 'actions']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['name', 'description', 'deadline','category', 'actions'];"></mat-row>
+
+  </mat-table>
+</div>

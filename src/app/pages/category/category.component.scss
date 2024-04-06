@@ -1,0 +1,61 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .add-button {
+    margin-bottom: 10px;
+  }
+  
+  .categories-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .mat-header-cell,
+  .mat-cell {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mat-header-row {
+    background-color: #f0f0f0;
+  }
+  
+  .mat-row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  button {
+    background-color: grey;
+    border: none;
+    cursor: pointer;
+    border-radius: 20%; /* Make the button circular */
+    width: 60px; /* Set the width to make it circular */
+    height: 40px; /* Set the height to make it circular */
+  }
+  
+  .delete-button {
+    background-color: red;
+  }
+  
+  .add-button {
+    background-color: green;
+  }
+  
+  .delete-button,
+  .add-button {
+    border: none;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,21 @@
+.custom-navbar {
+    height: 100px;
+    background-color: grey;
+    .container-fluid {
+      display: flex;
+      justify-content: flex-end;
+      .nav-links {
+        display: flex;
+        align-items: center;
+        a {
+          margin-left: 20px;
+          color: black;
+          text-decoration: none;
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  
