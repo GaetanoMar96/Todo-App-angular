@@ -2,23 +2,40 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogComponent, DeadlineDialogComponent, CategoryDialogComponent } from './../pages/index';
 import { Category } from './../model/category';
+import { Observable, Subject } from'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
 
+  private dialogResult: Subject<boolean> = new Subject<boolean>();
+
   constructor(private dialog: MatDialog) {}
+
+  addCategory(): Observable<boolean> {
+    this.openCategoryDialog();
+    // Return an observable to listen to the result
+    return this.dialogResult.asObservable();
+  }
 
   openCategoryDialog(): void {
     const dialogRef = this.dialog.open(CategoryDialogComponent, {
-        width: '300px',
-        height: '300px'
+        width: '500px',
+        height: '500px'
     });
 
-    dialogRef.componentInstance.closeEmitter.subscribe(() => {
-        this.dialog.closeAll();
+    dialogRef.componentInstance.closeEmitter.subscribe((success: boolean) => {
+      if(success) {
+        this.dialogResult.next(true)
       }
-    );
+    });
   }
+
+  addTask(categories: Category[]): Observable<boolean> {
+    this.openTaskDialog(categories);
+    // Return an observable to listen to the result
+    return this.dialogResult.asObservable();
+  }
+
 
   openTaskDialog(categories: Category[]): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
@@ -27,33 +44,31 @@ export class DialogService {
         height: '600px'
     });
 
-    dialogRef.componentInstance.closeEmitter.subscribe(() => {
-        this.dialog.closeAll();
+    dialogRef.componentInstance.closeEmitter.subscribe((success: boolean) => {
+      if(success) {
+        this.dialogResult.next(true)
       }
+    }
     );
   }
 
-  openTaskEditDialog(taskId: number): boolean {
+  editTask(taskId: number): Observable<boolean> {
+    this.openTaskEditDialog(taskId);
+    // Return an observable to listen to the result
+    return this.dialogResult.asObservable();
+  }
+
+  openTaskEditDialog(taskId: number): void {
     const dialogRef = this.dialog.open(DeadlineDialogComponent, {
         data: taskId,
         width: '600px',
         height: '600px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        // Editing was successful, return true
-        return true;
-      } else {
-        // Editing was canceled or unsuccessful, return false
-        return false;
+    dialogRef.componentInstance.closeEmitter.subscribe((success: boolean) => {
+      if(success) {
+        this.dialogResult.next(true)
       }
     });
-  
-    dialogRef.componentInstance.closeEmitter.subscribe(() => {
-      this.dialog.closeAll();
-    });
-  
-    return true; // Return false by default
   }
 }

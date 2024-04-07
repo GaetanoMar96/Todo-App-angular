@@ -11,8 +11,6 @@ import { ApiPaths } from './../helpers/api-paths';
 })
 export class TaskService {
     
-    private taskSubject: Subject<Task[]> = new Subject<Task[]>();
-
     constructor(
         private http: HttpClient) {
     }
@@ -21,15 +19,6 @@ export class TaskService {
 
     getAllTasks(): Observable<Task[]> {
         return this.http.get<Task[]>(`${environment.apiUrl}/${ApiPaths.Tasks}`)
-        .pipe(
-            tap(tasks => {
-              this.taskSubject.next(tasks); // Add tasks to the subject
-            })
-        )
-    }
-
-    getTaskSubject(): Observable<Task[]> {
-        return this.taskSubject.asObservable();
     }
 
     getTaskById(id: number): Observable<Task> {

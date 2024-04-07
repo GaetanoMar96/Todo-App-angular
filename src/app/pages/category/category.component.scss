@@ -1,61 +1,73 @@
 .container {
-    margin-top: 20px;
-  }
-  
-  .section-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .add-button {
-    margin-bottom: 10px;
-  }
-  
-  .categories-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .mat-header-cell,
-  .mat-cell {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .mat-header-row {
-    background-color: #f0f0f0;
-  }
-  
-  .mat-row:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .action-buttons {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  button {
-    background-color: grey;
-    border: none;
-    cursor: pointer;
-    border-radius: 20%; /* Make the button circular */
-    width: 60px; /* Set the width to make it circular */
-    height: 40px; /* Set the height to make it circular */
-  }
-  
-  .delete-button {
-    background-color: red;
-  }
-  
-  .add-button {
-    background-color: green;
-  }
-  
-  .delete-button,
-  .add-button {
-    border: none;
-    cursor: pointer;
-  }
-  
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.categories-table {
+  border-collapse: collapse;
+  width: 100%; /* Ensure the table takes the full width of its container */
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.mat-header-row {
+  background-color: #f0f0f0;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  border-radius: 10%; /* Make the button circular */
+  width: 80px; /* Set the width to make it circular */
+  height: 40px; /* Set the height to make it circular */
+}
+
+.add-button {
+  background-color: rgb(28, 43, 5);
+  margin-bottom: 20px;
+  color: white;
+}
+
+.add-button:hover {
+  background-color: #27812b; /* Darker Green */
+}
+
+.delete-button {
+  background-color: red;
+}
+
+.delete-button:hover {
+  background-color: orangered;
+}
+
+.button-row {
+  margin-left: 800px;
+  margin-top: 20px; /* Adjust margin top */
+  display: flex;
+}
+
+.mat-paginator {
+  margin-top: 20px; /* Adjust margin top */
+}

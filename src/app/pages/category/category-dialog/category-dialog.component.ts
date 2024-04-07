@@ -36,6 +36,7 @@ export class CategoryDialogComponent {
       {
         next: () => {
           this.dialogRef.close(true);
+          this.closeEmitter.emit(true)
         },
         error: (err) => {
           console.error('Error creating category:', err);

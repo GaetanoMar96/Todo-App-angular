@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./task-dialog.component.scss']
 })
 export class TaskDialogComponent {
-  @Output() closeEmitter = new EventEmitter<void>();
+  @Output() closeEmitter = new EventEmitter<boolean>();
 
   taskName: string = '';
   taskDescription: string = '';
@@ -48,12 +48,13 @@ export class TaskDialogComponent {
       {
         next: () => {
           this.dialogRef.close(task);
+          this.closeEmitter.emit(true)
         },
         error: (err) => {
           console.error('Error creating task:', err);
+          this.dialogRef.close();
         }
       }
     )
-    this.dialogRef.close(null);
   }
 }

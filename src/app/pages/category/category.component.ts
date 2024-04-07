@@ -1,16 +1,23 @@
-import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { Task, Category } from './../../model/index';
-import { DialogService, TaskService, CategoryService } from './../../service/index';
+import { Component, OnDestroy, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Category } from './../../model/index';
+import { DialogService, CategoryService } from './../../service/index';
 import { Subscription } from'rxjs';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements OnInit, OnDestroy  {
+export class CategoryComponent implements OnInit, OnDestroy, AfterViewInit  {
 
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   categories: Category[] = []
+  dataSource: MatTableDataSource<Category>;
 
   private categorySubscription: Subscription = new Subscription();
 
@@ -18,6 +25,7 @@ export class CategoryComponent implements OnInit, OnDestroy  {
     private categoryService: CategoryService,
     private dialogService: DialogService
   ) { 
+    this.dataSource = new MatTableDataSource<Category>([])
   }
 
   ngOnInit(): void {
@@ -25,17 +33,26 @@ export class CategoryComponent implements OnInit, OnDestroy  {
     this.categorySubscription = this.categoryService.getAllCategories()
     .subscribe(
       {
-        next: (value) => this.categories = value,
+        next: (value) => {
+          this.categories = value
+          this.dataSource.data = this.categories
+        },
         error: (err) => console.log(err)
       }
     )
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator
+  }
+  
   refreshCategoryList() {
     this.categorySubscription = this.categoryService.getAllCategories().subscribe(
       {
         next: (value) => {
           this.categories = value;
+          this.dataSource.data = this.categories
         },
         error: (err) => console.log(err)
       }
@@ -56,7 +73,12 @@ export class CategoryComponent implements OnInit, OnDestroy  {
   }
 
   addCategory() {
-    this.dialogService.openCategoryDialog();
+    this.dialogService.addCategory().subscribe((success: boolean) => {
+        if (success) {
+          // Handle success refreshing the category list
+          this.refreshCategoryList();
+        }
+  });
   }
 
   ngOnDestroy(): void {

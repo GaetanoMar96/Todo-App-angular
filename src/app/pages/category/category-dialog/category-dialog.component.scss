@@ -38,6 +38,11 @@ label {
   justify-content: center; /* Centers the buttons horizontally */
 }
 
+.button {
+  width: 40px !important;
+  height: 30px;
+}
+
 .cancel-button {
   margin-right: 10px;
 }
