@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogComponent, DeadlineDialogComponent, CategoryDialogComponent } from './../pages/index';
-import { Category } from './../model/category';
+import { Category, Task } from './../model/index';
 import { Observable, Subject } from'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -52,15 +52,15 @@ export class DialogService {
     );
   }
 
-  editTask(taskId: number): Observable<boolean> {
-    this.openTaskEditDialog(taskId);
+  editTask(task: Task): Observable<boolean> {
+    this.openTaskEditDialog(task);
     // Return an observable to listen to the result
     return this.dialogResult.asObservable();
   }
 
-  openTaskEditDialog(taskId: number): void {
+  openTaskEditDialog(task: Task): void {
     const dialogRef = this.dialog.open(DeadlineDialogComponent, {
-        data: taskId,
+        data: task,
         width: '600px',
         height: '600px'
     });

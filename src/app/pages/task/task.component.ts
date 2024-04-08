@@ -84,7 +84,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   updateTask(id: number) {
-    this.dialogService.editTask(id).subscribe((success: boolean) => {
+    let task = this.tasks.filter(task => task.taskId === id)[0];
+    if (task == undefined)
+      return
+    this.dialogService.editTask(task).subscribe((success: boolean) => {
       if (success) {
         // Handle success refreshing the task list
         this.refreshTaskList();

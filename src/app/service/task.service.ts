@@ -29,8 +29,8 @@ export class TaskService {
         return this.http.post<void>(`${environment.apiUrl}/${ApiPaths.Tasks}`, task);
     }
 
-    updateTaskDeadlineById(id: number, dealine: Date): Observable<Task> {
-        return this.http.patch<Task>(`${environment.apiUrl}/${ApiPaths.Tasks}/` + id, dealine);
+    updateTask(task: Task): Observable<Task> {
+        return this.http.put<Task>(`${environment.apiUrl}/${ApiPaths.Tasks}`, task);
     }
 
     deleteTaskById(id: number): Observable<number> {

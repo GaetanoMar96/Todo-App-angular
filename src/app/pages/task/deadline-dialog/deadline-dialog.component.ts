@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskService } from './../../../service/index';
 import { DatePipe } from '@angular/common';
-
+import { Task } from './../../../model/task';
 
 @Component({
   selector: 'app-deadline-dialog',
@@ -12,17 +12,18 @@ import { DatePipe } from '@angular/common';
 export class DeadlineDialogComponent {
   @Output() closeEmitter = new EventEmitter<boolean>();
 
+  taskDescription: string = '';
   deadline: Date;
   deadlineTime: string = '00:00:00';
-  taskId: number = 0;
+  task: Task;
 
   constructor(
     private taskService: TaskService,
     public dialogRef: MatDialogRef<DeadlineDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number
+    @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
 
-    this.taskId = data;
+    this.task = data;
     this.deadline = new Date();
   }
 
@@ -34,9 +35,9 @@ export class DeadlineDialogComponent {
     const datePipe = new DatePipe('en-US');
     const formattedDateTime = datePipe.transform(this.deadline + 'T' + this.deadlineTime, 'yyyy-MM-ddTHH:mm:ss');
     if (formattedDateTime) {
-      console.log(formattedDateTime)
-      console.log(new Date(formattedDateTime))
-      this.taskService.updateTaskDeadlineById(this.taskId, new Date(formattedDateTime))
+      this.task.description = this.taskDescription
+      this.task.deadline = formattedDateTime;
+      this.taskService.updateTask(this.task)
       .subscribe(
           {
             next: (value) => {

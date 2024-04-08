@@ -1,6 +1,7 @@
 # TodoApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+It is a simple dashboard to visualize tasks and realted categories.
 
 ## Development server
 
@@ -14,10 +15,18 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## How to Run the Application using Docker
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To run the application using docker, execute the following command in the terminal where the docker file is located:
 
-## Running end-to-end tests
+```bash
+docker build -t your-image-name .
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+then to run the container 
+
+```bash
+docker run -p 80:80 your-image-name
+```
+
+This will start the application on the default port 80
